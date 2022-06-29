@@ -19,6 +19,7 @@ const registerUser = asyncHandler(async (request, response) => {
   const userExists = await User.findOne({email: email})
 
   if (userExists) {
+    console.log('User already exists')
     response.status(400)
     throw new Error('User already exists')
   }
@@ -51,6 +52,8 @@ const registerUser = asyncHandler(async (request, response) => {
 // @route   /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (request, response) => {
+
+  console.log(request.body)
   const {email, password} = request.body
   
   const user = await User.findOne({email})
