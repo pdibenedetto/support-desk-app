@@ -1,7 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
-const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+
+const User = require('../models/userModel')
 
 // @desc    Register a new user
 // @route   /api/users
@@ -19,7 +20,6 @@ const registerUser = asyncHandler(async (request, response) => {
   const userExists = await User.findOne({email: email})
 
   if (userExists) {
-    console.log('User already exists')
     response.status(400)
     throw new Error('User already exists')
   }
@@ -32,7 +32,7 @@ const registerUser = asyncHandler(async (request, response) => {
   const user = await User.create({
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
   })
 
   if(user) {
@@ -52,8 +52,6 @@ const registerUser = asyncHandler(async (request, response) => {
 // @route   /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (request, response) => {
-
-  console.log(request.body)
   const {email, password} = request.body
   
   const user = await User.findOne({email})
@@ -69,7 +67,6 @@ const loginUser = asyncHandler(async (request, response) => {
     response.status(401)
     throw new Error('Invalid credentials')
   }
-  response.send('Login Route')
 })
 
 // @desc    Get current user
@@ -82,8 +79,6 @@ const getMe = asyncHandler(async (request, response) => {
     name: request.user.name,
   }
   response.status(200).json(user)
-  
-  response.send('me')
 })
 
 // Generate JWT
@@ -100,5 +95,5 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
-  getMe
+  getMe,
 }
