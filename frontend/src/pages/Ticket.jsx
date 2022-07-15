@@ -138,14 +138,10 @@ const Ticket = () => {
         </form>
       </Modal>
       {
-      notes.map((note) => {
-        return (
-          <NoteItem key={
-              note._id
-            }
-            note={note}/>
-        )
-      })
+      notes.map((note) => (
+        <NoteItem key={note._id}
+          note={note} />
+      ))
     }
 
 

@@ -21,6 +21,8 @@ app.use('/api/tickets', require('./routes/ticketRoutes'))
 // Serve Frontend
 if (process.env.NODE_ENV === 'production') {
   // Set build folder as static
+  console.log(__dirname)
+  console.log(path.join(__dirname, '../frontend/build'))
   app.use(express.static(path.join(__dirname, '../frontend/build')))
 
   // FIX: below code fixes app crashing on refresh in deployment
